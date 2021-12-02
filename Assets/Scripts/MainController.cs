@@ -50,11 +50,29 @@ public class MainController : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision) // 충돌 당시 한번만 실행
     {
         if (collision.collider.tag == "Cube")
         {
-            Debug.Log("충돌");
+            Debug.Log("충돌 시작");
+            animator.Play("DAMAGED01", -1, 0);
+            this.transform.Translate(Vector3.back * speedZ * Time.deltaTime);
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.tag == "Cube")
+        {
+            Debug.Log("충돌 유지");
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.tag == "Cube")
+        {
+            Debug.Log("충돌 해제");
         }
     }
 
